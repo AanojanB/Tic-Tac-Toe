@@ -6,10 +6,13 @@ public class App extends JFrame{
     JFrame f;
 
     JButton[][] gridArea = 
-    {{new JButton("Space"), new JButton("Space"), new JButton("Space")}, 
-    {new JButton("Space"), new JButton("Space"),new JButton("Space")}, 
-    {new JButton("Space"), new JButton("Space"),new JButton("Space")}};
-    
+    {{new JButton(" "), new JButton("Space"), new JButton("Space")}, 
+    {new JButton(" "), new JButton("Space"),new JButton("Space")}, 
+    {new JButton(" "), new JButton("Space"),new JButton("Space")}};
+   
+   //henry zelonka's branch 
+
+
     String selectiveChar = "X";
     boolean gameWon = false;
 
