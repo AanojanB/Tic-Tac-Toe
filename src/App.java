@@ -1,16 +1,20 @@
+   
+   //henry zelonka's branch 
+
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class App extends JFrame{
-    JFrame f;
+public class App{
+    static JFrame f = new JFrame();;
+    static JTextField t;
+    static JLabel l;
 
     JButton[][] gridArea = 
-    {{new JButton(" "), new JButton("Space"), new JButton("Space")}, 
-    {new JButton(" "), new JButton("Space"),new JButton("Space")}, 
-    {new JButton(" "), new JButton("Space"),new JButton("Space")}};
-   
-   //henry zelonka's branch 
+    {{new JButton(" "), new JButton(" "), new JButton(" ")}, 
+    {new JButton(" "), new JButton(" "),new JButton(" ")}, 
+    {new JButton(" "), new JButton(" "),new JButton(" ")}};
 
 
     String selectiveChar = "X";
@@ -21,7 +25,7 @@ public class App extends JFrame{
             for(int j = 0; j<3; j++ ){
                 gridArea[i][j].setBounds(i*100+100, j*100+100, 100, 100);
                 JButton gameInput = gridArea[i][j];
-                add(gameInput);
+                f.add(gameInput);
                 gridArea[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         if (!gameInput.getText().equals("X") && !gameInput.getText().equals("O")&& !gameWon){
@@ -65,11 +69,22 @@ public class App extends JFrame{
                 );
             }
         }
-        setSize(500,500);
-        setLayout(null);
-        setVisible(true);
+        f.setSize(500,500);
+        f.setLayout(null);
+        f.setVisible(true);
     }
     public static void main(String[] args) throws Exception {
-        App app = new App();     
+        l = new JLabel("nothing entered");
+        t = new JTextField(16);
+        Font fo = new Font("Serif", Font.BOLD, 20);
+        t.setFont(fo);
+        JPanel p = new JPanel();
+        p.add(t);        f.setSize(500,500);
+        f.setLayout(null);
+        f.setVisible(true);
+        p.add(l);
+        f.add(p);
+        //f.show();
+    
     }
 }
