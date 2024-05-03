@@ -1,22 +1,23 @@
-import javax.swing.*;
+import javax.swing.*; //Imported library to use function like JButton have clickable areas as well as having click perform an action of changing the space X or O
 import java.awt.event.*;
 import java.awt.*;
 
 public class App extends JFrame{
     JFrame f;
 
+    //Creating a 3x3 grid area which is clickable and has the text "Space" inside
     JButton[][] gridArea = 
     {{new JButton("Space"), new JButton("Space"), new JButton("Space")}, 
     {new JButton("Space"), new JButton("Space"),new JButton("Space")}, 
     {new JButton("Space"), new JButton("Space"),new JButton("Space")}};
     
-    String selectiveChar = "X";
-    boolean gameWon = false;
+    String selectiveChar = "X"; //The input of your click
+    boolean gameWon = false; //intializing gameWon as boolean value and setting it to false, so that it will change when a player wins the game
 
-    App(){            
-        for(int i = 0; i<3; i++){
+    App(){     //Creating the 3x3 box       
+        for(int i = 0; i<3; i++){ 
             for(int j = 0; j<3; j++ ){
-                gridArea[i][j].setBounds(i*100+100, j*100+100, 100, 100);
+                gridArea[i][j].setBounds(i*100+100, j*100+100, 100, 100); //Setting
                 JButton gameInput = gridArea[i][j];
                 add(gameInput);
                 gridArea[i][j].addActionListener(new ActionListener() {
