@@ -15,8 +15,8 @@ public class TicTacToe extends JFrame{
 
     String selectiveChar = "X";
     boolean gameWon = false;
-void createGrid(){
-for(int i = 0; i<3; i++){
+    void createGrid(){
+        for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++ ){
                 gridArea[i][j].setBounds(i*100+100, j*100+100, 100, 100);
                 JButton gameInput = gridArea[i][j];
@@ -75,6 +75,7 @@ for(int i = 0; i<3; i++){
         p.add(t);   
         setLayout(null);
         setVisible(true);
+        setTitle("Tic-Tac-Toe");
         add(l);
         add(p);   
 }}
