@@ -3,8 +3,7 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class TicTacToe extends JFrame{
-    //static JFrame f = new JFrame();;
-    static JTextField t;
+
     static JLabel l;
 
     JButton[][] gridArea = 
@@ -25,16 +24,13 @@ public class TicTacToe extends JFrame{
                     public void actionPerformed(ActionEvent ae) {
                         if (!gameInput.getText().equals("X") && !gameInput.getText().equals("O")&& !gameWon){
                             gameInput.setText(selectiveChar);
-                            if(selectiveChar == "X"){
-                                selectiveChar = "O";                            
-                            }
-                            else if (selectiveChar == "O"){
-                                selectiveChar = "X";
-                            }
+                    
+
                         for(int y =0; y<3; y++){
                             if(gridArea[y][0].getText().equals(gridArea[y][1].getText()) && gridArea[y][0].getText().equals(gridArea[y][2].getText())){
                                 if (gridArea[y][0].getText().equals("X")||gridArea[y][0].getText().equals("O")){
                                     gameWon = true;
+                                    l.setText("Player " + selectiveChar + " Wins!");                         
                                 }
                             }
                         }
@@ -42,8 +38,20 @@ public class TicTacToe extends JFrame{
                             if(gridArea[0][x].getText().equals(gridArea[1][x].getText()) && gridArea[0][x].getText().equals(gridArea[2][x].getText())){
                                 if (gridArea[0][x].getText().equals("X")||gridArea[0][x].getText().equals("O")){
                                     gameWon = true;
+                                    l.setText("Player " + selectiveChar + " Wins!");                         
+
                                 }
                             }
+                        }
+
+                        if(!gameWon){
+                            if(selectiveChar == "X"){
+                                selectiveChar = "O";   
+                            }
+                            else if (selectiveChar == "O"){
+                                selectiveChar = "X";   
+                            }
+                            l.setText("Player " + selectiveChar + " Go");     
                         }
 
                         if(gridArea[0][0].getText().equals(gridArea[1][1].getText())&& gridArea[0][0].getText().equals(gridArea[2][2].getText())){
@@ -64,18 +72,17 @@ public class TicTacToe extends JFrame{
                 );
             }
         }
-        setSize(500,500);
+      
         setLayout(null);
         setVisible(true);
-        l = new JLabel("nothing entered");
-        t = new JTextField(16);
-        Font fo = new Font("Serif", Font.BOLD, 20);
-        t.setFont(fo);
-        JPanel p = new JPanel();
-        p.add(t);   
-        setLayout(null);
+        l = new JLabel("Player X Go");
+        JPanel p = new JPanel();  
+        setLayout(new BorderLayout());
+        pack();
+        setSize(500,500);
         setVisible(true);
         setTitle("Tic-Tac-Toe");
-        add(l);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        p.add(l);
         add(p);   
 }}
