@@ -5,6 +5,7 @@ import java.awt.*;
 public class TicTacToe extends JFrame{
 
     static JLabel l;
+    static JLabel l2;
 
     JButton[][] gridArea = 
     {{new JButton(" "), new JButton(" "), new JButton(" ")}, 
@@ -76,13 +77,25 @@ public class TicTacToe extends JFrame{
         setLayout(null);
         setVisible(true);
         l = new JLabel("Player X Go");
+        l.setBounds(20,20,200,10);
         JPanel p = new JPanel();  
+        p.setLayout(null);
+
+        l2 = new JLabel("Player X Go 2");
+        l2.setBounds(400,20,200,10);
+
         setLayout(new BorderLayout());
         pack();
         setSize(500,500);
         setVisible(true);
         setTitle("Tic-Tac-Toe");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
         p.add(l);
-        add(p);   
+        add(p); 
+
+
+        p.add(l2);
+        add(p); 
+
 }}
