@@ -5,14 +5,16 @@ import java.awt.*;
 public class TicTacToe extends JFrame{
 
     static JLabel l;
-    static JLabel textLine2;
     static JLabel l2;
+    static JLabel l3;
+    static JButton replay;
 
     //Creating a 3x3 grid area which is clickable and has the text "Space" inside
     JButton[][] gridArea = 
     {{new JButton(" "), new JButton(" "), new JButton(" ")}, 
     {new JButton(" "), new JButton(" "),new JButton(" ")}, 
     {new JButton(" "), new JButton(" "),new JButton(" ")}};
+
 
     //The input of your click
     String selectiveChar = "X";
@@ -37,12 +39,14 @@ public class TicTacToe extends JFrame{
                  //Function from library to allow for action/change to happen if something happens to the boxe
                 gridArea[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
+                        l2.setText("Player X Wins: " + countX);
+                        l3.setText("Player O Wins: " + countO);
                         //If gameInput does not equal X or O make it equal to selective character variable
                         if (!gameInput.getText().equals("X") && !gameInput.getText().equals("O")&& !gameWon){
                             gameInput.setText(selectiveChar);
                             //selectiveChar changes if the most recent turn was X, so the variable is now set to O
                             if(selectiveChar == "X"){
-                                selectiveChar = "O";                            
+                                selectiveChar = "O";                         
                             }
                             //selectiveChar changes if the most recent turn was O, so the variable is now set to X
                             else if (selectiveChar == "O"){
@@ -99,11 +103,12 @@ public class TicTacToe extends JFrame{
                         
                         if ((player == "O" & gameWon == true)){
                             countO++;
+                            l3.setText("Player O Wins: " + countO);
                         }
                         else if((player == "X" & gameWon == true)){
                             countX++;
+                            l2.setText("Player X Wins: " + countX);
                         }
-                                            
                     }
 
                     }
@@ -112,43 +117,43 @@ public class TicTacToe extends JFrame{
                 );
             }
         }
+        setLayout(null);
         setVisible(true);
         l = new JLabel("Player X Go");
-        //l.setBounds(10,10,200,100);
-
-        l.setVerticalAlignment(JLabel.CENTER_ALIGNMENT);
-
-        JPanel p = new JPanel(); 
+        l.setBounds(210,20,200,10);
+        JPanel p = new JPanel();  
         p.setLayout(null);
-        setLayout(new BorderLayout());
-        
-        l2 = new JLabel("Player t Go");
-        l2.setBounds(10,100,200,100);
-        JPanel p3 = new JPanel(); 
-        p3.setLayout(null);
-        p3.add(l2);
-        add(p3);
-        
-        //
 
+        l2 = new JLabel("Player X Wins: " + countX);
+        l2.setBounds(100,425,200,10);
+
+        l3 = new JLabel("Player O Wins: " + countO);
+        l3.setBounds(300, 425, 200, 10);
+
+        replay = new JButton("Play Again?");
+        replay.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae){
+                for(int i = 0; i<3; i++){
+                    for(int j = 0; j<3; j++ ){
+                        gridArea[i][j].setText(" ");
+                    }
+                }
+                gameWon = false;
+            }});
+        replay.setBounds(160, 450, 200, 20);
+
+        setLayout(new BorderLayout());
         pack();
-        setSize(500,500);
+        setSize(600,600);
+        getContentPane().setBackground(Color.YELLOW);
         setVisible(true);
         setTitle("Tic-Tac-Toe");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        p.add(l);
-        add(p);
-        
-        
         
 
-        /*JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c. gridy = 0;
-        panel.add(new JLabel("Label 1:"), c);
-        c.gridx = 1 ;
-        c.gridy = 0;
-        panel.add()*/
+        p.add(l); 
+        p.add(l2);         
+        p.add(l3);
+        p.add(replay);
+        add(p);
 }}
