@@ -129,8 +129,7 @@ public class TicTacToe extends JFrame{
         p3.add(l2);
         add(p3);
         
-        
-        
+        //
 
         pack();
         setSize(500,500);
