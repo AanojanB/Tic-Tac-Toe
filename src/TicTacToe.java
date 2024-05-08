@@ -3,9 +3,10 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class TicTacToe extends JFrame{
-    //static JFrame f = new JFrame();;
-    static JTextField t;
+
     static JLabel l;
+    static JLabel textLine2;
+    static JLabel l2;
 
     //Creating a 3x3 grid area which is clickable and has the text "Space" inside
     JButton[][] gridArea = 
@@ -17,6 +18,9 @@ public class TicTacToe extends JFrame{
     String selectiveChar = "X";
     //Variable for ending the gae
     boolean gameWon = false;
+
+    int countO = 0;
+    int countX = 0;
 
     String player = "";
     //Function
@@ -91,9 +95,15 @@ public class TicTacToe extends JFrame{
                                 player = "O";
                             }
                         }
-                        if(gameWon == true){
-                            JOptionPane.showMessageDialog(null, "Player " + player + " has won");
-                        }                    
+                        
+                        
+                        if ((player == "O" & gameWon == true)){
+                            countO++;
+                        }
+                        else if((player == "X" & gameWon == true)){
+                            countX++;
+                        }
+                                            
                     }
 
                     }
@@ -102,17 +112,44 @@ public class TicTacToe extends JFrame{
                 );
             }
         }
+        setVisible(true);
+        l = new JLabel("Player X Go");
+        //l.setBounds(10,10,200,100);
+
+        l.setVerticalAlignment(JLabel.CENTER_ALIGNMENT);
+
+        JPanel p = new JPanel(); 
+        p.setLayout(null);
+        setLayout(new BorderLayout());
+        
+        l2 = new JLabel("Player t Go");
+        l2.setBounds(10,100,200,100);
+        JPanel p3 = new JPanel(); 
+        p3.setLayout(null);
+        p3.add(l2);
+        add(p3);
+        
+        
+        
+
+        pack();
         setSize(500,500);
-        setLayout(null);
         setVisible(true);
-        l = new JLabel("nothing entered");
-        t = new JTextField(16);
-        Font fo = new Font("Serif", Font.BOLD, 20);
-        t.setFont(fo);
-        JPanel p = new JPanel();
-        p.add(t);   
-        setLayout(null);
-        setVisible(true);
-        add(l);
-        add(p);   
+        setTitle("Tic-Tac-Toe");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        p.add(l);
+        add(p);
+        
+        
+        
+
+        /*JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c. gridy = 0;
+        panel.add(new JLabel("Label 1:"), c);
+        c.gridx = 1 ;
+        c.gridy = 0;
+        panel.add()*/
 }}
