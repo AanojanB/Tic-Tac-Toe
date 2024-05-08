@@ -32,6 +32,7 @@ public class TicTacToe extends JFrame{
             for(int j = 0; j<3; j++ ){
                 //Setting the size of the grid boxes
                 gridArea[i][j].setBounds(i*100+100, j*100+100, 100, 100);
+                gridArea[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
                 //Makes the boxes from grid area interactable
                 JButton gameInput = gridArea[i][j];
                 //Adding clickable boxes to the screen
@@ -41,16 +42,19 @@ public class TicTacToe extends JFrame{
                     public void actionPerformed(ActionEvent ae) {
                         l2.setText("Player X Wins: " + countX);
                         l3.setText("Player O Wins: " + countO);
+                        gameInput.setFont(new Font("Arial", Font.PLAIN, 40)); 
                         //If gameInput does not equal X or O make it equal to selective character variable
                         if (!gameInput.getText().equals("X") && !gameInput.getText().equals("O")&& !gameWon){
                             gameInput.setText(selectiveChar);
                             //selectiveChar changes if the most recent turn was X, so the variable is now set to O
                             if(selectiveChar == "X"){
-                                selectiveChar = "O";                         
+                                selectiveChar = "O";
+                                gameInput.setForeground((Color.RED));                                       
                             }
                             //selectiveChar changes if the most recent turn was O, so the variable is now set to X
                             else if (selectiveChar == "O"){
                                 selectiveChar = "X";
+                                gameInput.setForeground((Color.BLUE)); 
                             }
                         //Checks if there is three in row in the y-axis/there is vertical row of matching characters 
                         for(int y =0; y<3; y++){
@@ -120,15 +124,18 @@ public class TicTacToe extends JFrame{
         setLayout(null);
         setVisible(true);
         l = new JLabel("Player X Go");
-        l.setBounds(210,20,200,10);
+        l.setBounds(210,20,200,15);
+        l.setFont(new Font("Verdana", Font.BOLD, 14));
         JPanel p = new JPanel();  
         p.setLayout(null);
 
         l2 = new JLabel("Player X Wins: " + countX);
-        l2.setBounds(100,425,200,10);
+        l2.setBounds(100,425,200,15);
+        l2.setFont(new Font("Verdana", Font.BOLD, 14));
 
         l3 = new JLabel("Player O Wins: " + countO);
-        l3.setBounds(300, 425, 200, 10);
+        l3.setBounds(300, 425, 200, 15);
+        l3.setFont(new Font("Verdana", Font.BOLD, 14));
 
         replay = new JButton("Play Again?");
         replay.addActionListener(new ActionListener() {
@@ -141,11 +148,13 @@ public class TicTacToe extends JFrame{
                 gameWon = false;
             }});
         replay.setBounds(160, 450, 200, 20);
+        replay.setFont(new Font("Verdana", Font.BOLD, 14));
+
+
 
         setLayout(new BorderLayout());
         pack();
         setSize(600,600);
-        getContentPane().setBackground(Color.YELLOW);
         setVisible(true);
         setTitle("Tic-Tac-Toe");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
