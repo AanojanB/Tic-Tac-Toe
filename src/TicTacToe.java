@@ -23,6 +23,7 @@ public class TicTacToe extends JFrame{
                 add(gameInput);
                 gridArea[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
+                        
                         if (!gameInput.getText().equals("X") && !gameInput.getText().equals("O")&& !gameWon){
                             gameInput.setText(selectiveChar);
                     
