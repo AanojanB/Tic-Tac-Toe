@@ -1,47 +1,57 @@
+//importing necessary modules
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
+//creating the TicTacToe class, which extends the JFrame class to allow it to display graphics
 public class TicTacToe extends JFrame{
 
-    static JLabel l;
-    static JLabel l2;
-    static JLabel l3;
+    //JLabel to display to users whether it is player O's turn or player X's turn
+    static JLabel displayCurrentPlayer;
+    //JLabel to display to tells user the number of times player X has won
+    static JLabel playerXWins;
+    //JLabel to display to tells user the number of times player O has won
+    static JLabel playerOWins;
+    //button the users can press to restart the game
     static JButton replay;
 
-    //Creating a 3x3 grid area which is clickable and has the text "Space" inside
+    //Creating a 3x3 grid area which is clickable and will allow the users to place their Xs and Os
     JButton[][] gridArea = 
     {{new JButton(" "), new JButton(" "), new JButton(" ")}, 
     {new JButton(" "), new JButton(" "),new JButton(" ")}, 
     {new JButton(" "), new JButton(" "),new JButton(" ")}};
 
 
-    //The input of your click
+    //This variable keeps track of what character will appear next time you click a square in the grid
     String selectiveChar = "X";
-    //Variable for ending the gae
+    //This variable keeps track of whether the game has been one yet or not
     boolean gameWon = false;
 
-    int countO = 0;
-    int countX = 0;
+    //Counts the number of wins for both players
+    int countWinsO = 0;
+    int countWinsX = 0;
 
+    //Records current player for the purpose of determining which player has won the game
     String player = "";
-    //Function
-    void createGrid(){
+    //Method to play the TicTacToe game; to be called in App.java
+    void playGame(){
         //Creating the 3x3 box
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++ ){
                 //Setting the size of the grid boxes
                 gridArea[i][j].setBounds(i*100+100, j*100+100, 100, 100);
                 gridArea[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
-                //Makes the boxes from grid area interactable
+                //Adding grid boxes to the JFrame
                 JButton gameInput = gridArea[i][j];
-                //Adding clickable boxes to the screen
                 add(gameInput);
-                 //Function from library to allow for action/change to happen if something happens to the boxe
+                //Function from library to allow for action/change to happen if the box is clicked on
                 gridArea[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
-                        l2.setText("Player X Wins: " + countX);
-                        l3.setText("Player O Wins: " + countO);
+                        //setting the text of both Player X wins and Player Y wins to be equal to the variables
+                        //containing this information in case it has been updated
+                        playerXWins.setText("Player X Wins: " + countWinsX);
+                        playerOWins.setText("Player O Wins: " + countWinsO);
+                        //Setting the font of the box that has been clicked on so the Xs and Os do not appear too small
                         gameInput.setFont(new Font("Arial", Font.PLAIN, 40)); 
                         //If gameInput does not equal X or O make it equal to selective character variable
                         if (!gameInput.getText().equals("X") && !gameInput.getText().equals("O")&& !gameWon){
@@ -50,89 +60,129 @@ public class TicTacToe extends JFrame{
                             if(selectiveChar == "X"){
                                 selectiveChar = "O";
                                 gameInput.setForeground((Color.RED)); 
-                                l.setText("Player O Go");                                      
+                                displayCurrentPlayer.setText("Player O Go");                                      
                             }
                             //selectiveChar changes if the most recent turn was O, so the variable is now set to X
                             else if (selectiveChar == "O"){
                                 selectiveChar = "X";
                                 gameInput.setForeground((Color.BLUE)); 
-                                l.setText("Player X Go");                                      
+                                displayCurrentPlayer.setText("Player X Go");                                      
 
                             }
                         //Checks if there is three in row in the y-axis/there is vertical row of matching characters 
                         for(int y =0; y<3; y++){
                             if(gridArea[y][0].getText().equals(gridArea[y][1].getText()) && gridArea[y][0].getText().equals(gridArea[y][2].getText())){
+                                //check if player X has three in a row
                                 if (gridArea[y][0].getText().equals("X")){
-                                    gameWon = true; //gameWon to true so that there are no more inputs once there is three in a row
+                                    //setting gamewon to true so no one can place any more letters
+                                    gameWon = true;
+                                    //recording that player X won the game 
                                     player = "X";
-                                    l.setText("Player X Wins!");                                      
+                                    //displaying to the users that player X won
+                                    displayCurrentPlayer.setText("Player X Wins!");                                      
 
                                 }
+                                //check if player O has three in a row
                                 else if(gridArea[y][0].getText().equals("O")){
+                                    //setting gamewon to true so no one can place any more lette
                                     gameWon = true;
+                                    //recording that player O won the game
                                     player = "O";
-                                    l.setText("Player O Wins!"); 
+                                    //displaying to the users that player O won
+                                    displayCurrentPlayer.setText("Player O Wins!"); 
                                 }
                             }
-                        }//Checks if there is three in row in the x-axis/there is horizontal row of matching characters
+                        }
+                        //Checks if there is three in row in the x-axis/there is horizontal row of matching characters
                         for(int x =0; x<3; x++){
+                            //check if player X won
                             if(gridArea[0][x].getText().equals(gridArea[1][x].getText()) && gridArea[0][x].getText().equals(gridArea[2][x].getText())){
                                 if (gridArea[0][x].getText().equals("X")){
+                                    //setting gamewon to true so no one can place any more letters
                                     gameWon = true;
+                                    //recording that player X won the game 
                                     player = "X";
-                                    l.setText("Player X Wins!");                                      
+                                    //displaying to the users that player X won
+                                    displayCurrentPlayer.setText("Player X Wins!");                                        
 
                                 }
+                                //check if player O won
                                 else if(gridArea[0][x].getText().equals("O")){
+                                    //setting gamewon to true so no one can place any more lette
                                     gameWon = true;
+                                    //recording that player O won the game
                                     player = "O";
-                                    l.setText("Player O Wins!");                                      
+                                    //displaying to the users that player O won
+                                    displayCurrentPlayer.setText("Player O Wins");                                   
 
                                 }
                             }
                         }
                         //Checks if there is three in row in a diagonal line
                         if(gridArea[0][0].getText().equals(gridArea[1][1].getText())&& gridArea[0][0].getText().equals(gridArea[2][2].getText())){
+                            //check if player X won
                             if (gridArea[0][0].getText().equals("X")){
-                                gameWon = true;
-                                player = "X";
-                                l.setText("Player X Wins!");                                      
+                                    //setting gamewon to true so no one can place any more letters
+                                    gameWon = true;
+                                    //recording that player X won the game 
+                                    player = "X";
+                                    //displaying to the users that player X won
+                                    displayCurrentPlayer.setText("Player X Wins!");                                  
 
                             }
+                            //check if player O won
                             else if(gridArea[1][1].getText().equals("O")){
-                                gameWon = true;
-                                player = "O";
-                                l.setText("Player O Wins!");                                      
+                                    //setting gamewon to true so no one can place any more lette
+                                    gameWon = true;
+                                    //recording that player O won the game
+                                    player = "O";
+                                    //displaying to the users that player O won
+                                    displayCurrentPlayer.setText("Player O Wins");                                          
 
                             }
                         }
                         //Checks if there is three in row in a diagonal line
                         if(gridArea[2][0].getText().equals(gridArea[1][1].getText())&& gridArea[0][2].getText().equals(gridArea[2][0].getText())){
+                            //check if player X won
                             if (gridArea[1][1].getText().equals("X")){
-                                gameWon = true;
-                                player = "X";
-                                l.setText("Player X Wins!");                                      
+                                    //setting gamewon to true so no one can place any more letters
+                                    gameWon = true;
+                                    //recording that player X won the game 
+                                    player = "X";
+                                    //displaying to the users that player X won
+                                    displayCurrentPlayer.setText("Player X Wins!");                                  
 
                             }
+                            //check if player O won
                             else if (gridArea[2][0].getText().equals("O")){
-                                gameWon = true;
-                                player = "O";
-                                l.setText("Player O Wins!");                                      
+                                    //setting gamewon to true so no one can place any more lette
+                                    gameWon = true;
+                                    //recording that player O won the game
+                                    player = "O";
+                                    //displaying to the users that player O won
+                                    displayCurrentPlayer.setText("Player O Wins");                                       
 
                             }
                         }
                         
-                        
+                        //checking if player O has won the game
                         if ((player == "O" & gameWon == true)){
-                            countO++;
-                            l3.setText("Player O Wins: " + countO);
-                            l.setText("Player O Wins!");                                      
+                            //incrementing the player O win counter by 1
+                            countWinsO++;
+                            //displaying the current number of player O wins to the user
+                            playerOWins.setText("Player O Wins: " + countWinsO);
+                            //telling the users that player O has won
+                            displayCurrentPlayer.setText("Player O Wins!");                                      
 
                         }
+                        //checking if player X has won the game                        
                         else if((player == "X" & gameWon == true)){
-                            countX++;
-                            l2.setText("Player X Wins: " + countX);
-                            l.setText("Player X Wins!");                                      
+                            //incrementing the player X win counter by 1
+                            countWinsX++;
+                            //displaying the current number of player X wins to the user
+                            playerXWins.setText("Player X Wins: " + countWinsX);
+                            //telling the users that player X has won
+                            displayCurrentPlayer.setText("Player X Wins!");                                      
 
                         }
                     }
@@ -143,50 +193,62 @@ public class TicTacToe extends JFrame{
                 );
             }
         }
-        setLayout(null);
-        setVisible(true);
-        l = new JLabel("Player X Go");
-        l.setBounds(210,20,200,15);
-        l.setFont(new Font("Verdana", Font.BOLD, 14));
-        JPanel p = new JPanel();  
+        //setting up the current player JLabel
+        displayCurrentPlayer = new JLabel("Player X Go");
+        displayCurrentPlayer.setBounds(210,20,200,15);
+        displayCurrentPlayer.setFont(new Font("Verdana", Font.BOLD, 14));
+        //creating a new JPanel to put the JLabel into
+        JPanel p = new JPanel();
+        //setting the layout of the JPanel to null so that the individual components can be positioned manually
         p.setLayout(null);
-
-        l2 = new JLabel("Player X Wins: " + countX);
-        l2.setBounds(100,425,200,15);
-        l2.setFont(new Font("Verdana", Font.BOLD, 14));
-
-        l3 = new JLabel("Player O Wins: " + countO);
-        l3.setBounds(300, 425, 200, 15);
-        l3.setFont(new Font("Verdana", Font.BOLD, 14));
-
+        //setting up the player X wins JLabel
+        playerXWins = new JLabel("Player X Wins: " + countWinsX);
+        playerXWins.setBounds(100,425,200,15);
+        playerXWins.setFont(new Font("Verdana", Font.BOLD, 14));
+        //setting up the player O wins JLabel
+        playerOWins = new JLabel("Player O Wins: " + countWinsO);
+        playerOWins.setBounds(300, 425, 200, 15);
+        playerOWins.setFont(new Font("Verdana", Font.BOLD, 14));
+        //setting up the replay game JButton
         replay = new JButton("Play Again?");
+        //adding an action listener so that the button can detect when it has been pressed
         replay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae){
+                //looping through each button in the 3x3 grid
                 for(int i = 0; i<3; i++){
                     for(int j = 0; j<3; j++ ){
+                        //setting each button's text to be blank to get rid of the Xs and Os
                         gridArea[i][j].setText(" ");
                     }
                 }
+                //setting gameWon to be false so that the players can play again
                 gameWon = false;
-                l.setText("Player X Go");
+                //making it player X's turn again
+                displayCurrentPlayer.setText("Player X Go");
                 selectiveChar = "X";
             }});
+        //setting the size, position, and font of the JButton
         replay.setBounds(160, 450, 200, 20);
         replay.setFont(new Font("Verdana", Font.BOLD, 14));
 
-
-
+        //creating a new borderlayout for the JFrame
         setLayout(new BorderLayout());
+        //packing the JFrame
         pack();
+        //setting the size of the JFrame
         setSize(600,600);
+        //seting the JFrame to be visible so that the users can see it
         setVisible(true);
+        //setting the title of the JFrame
         setTitle("Tic-Tac-Toe");
+        //making it so the JFrame closes when you press the X in the top corner
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-
-        p.add(l); 
-        p.add(l2);         
-        p.add(l3);
+        //adding all labels and buttons to the JPanel
+        p.add(displayCurrentPlayer); 
+        p.add(playerXWins);         
+        p.add(playerOWins);
         p.add(replay);
+        //adding the JPanel to the JFrame
         add(p);
 }}
